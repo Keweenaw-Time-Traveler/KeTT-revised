@@ -7,6 +7,41 @@ This project was bootstrapped React and Redux.
 <li>Jest and Enjyme for Component and Integration Testing.</li>
 <li>Redux-Dev-Tools Extension for Troubleshooting the Redux Store and API Calls.</li>
 
+
+## File Structure
+
+
+    ├── ...
+    │
+    ├── public
+    ├── src                                                     # Starting Directory
+    │   ├── components
+    │   │            ├──  assets                                # All the public accessible files can be placed here
+    │   │            │          ├──  images
+    │   │            │          ├──  fonts
+    │   │            │          ├──  icons                      # All the icons are abstracted here from
+    │   │            │          ├──  styles(Optional)    
+    │   │            │          └──....
+    │   │            ├──  component_folder
+    │   │            │          ├──  index.js                   # Index file represents the start of the component
+    │   │            │          ├──  component_name.spec.js     # Test file for the file is represented here.
+    │   │            │          └──.....
+    │   │            ├──  store                                 # All the Redux files are handled here
+    │   │            │      ├── middleware                      # All Loggers and Interceptors are Configured in this folder.
+    │   │            │      ├── reducer                         # Reducer and their Configurations are stored in this folder.
+    │   │            │      ├── store.js                        # Redux Store configuration goes here
+    │   │            │      └──...
+    │   │            └──...  
+    │   ├── App.js
+    │   ├── index.js                                            # App Root structure starts from here.
+    └──....
+    
+
+
+
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -30,4 +65,4 @@ Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Your app is ready to be deployed
