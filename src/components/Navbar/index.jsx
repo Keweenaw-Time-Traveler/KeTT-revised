@@ -1,36 +1,46 @@
 import React from "react";
+import SearchIcon from "@material-ui/icons/Search";
+import MenuIcon from '@material-ui/icons/Menu';
 
 export default function Index() {
     return (
-        <div>
-            <section className="relative text-gray-600 body-font">
-                <div className="absolute inset-0 bg-gray-300">
-                    <div className="embed-container">
-                        <iframe style={{ height: '100vh', width: '100vw' }} frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0" title="TestingMap" src="//mtu.maps.arcgis.com/apps/Embed/index.html?webmap=2cb01996eaa14550aa60aa52dbb737cf&extent=-98.7809,39.2345,-74.5231,49.8257&zoom=true&previewImage=true&scale=true&disable_scroll=true&theme=light"></iframe>
+        <header class="text-gray-600 body-font">
+            <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+                <div className="flex flex-wrap border rounded-md justify-content space-x-2 ">
+                    <MenuIcon className="cursor-pointer my-auto mx-1 border-r-2" />
+                    <div className="flex items-center p-1 rounded-md">
+                        <input className="outline-none border-none flex-1 ml-1" placeholder="Search here..." />
+                        <SearchIcon />
                     </div>
                 </div>
-
-                <div className="container flex">
-
-                </div>
-                <div className="container flex px-5 py-24 mx-auto fle">
-
-                    <div className="relative flex flex-col w-full p-8 mt-10 bg-white rounded-lg shadow-md lg:w-1/3 md:w-1/2 md:ml-auto md:mt-0">
-                        <h2 className="mb-1 text-lg font-medium text-gray-900 title-font">Feedback</h2>
-                        <p className="mb-5 leading-relaxed text-gray-600">Post-ironic portland shabby chic echo park, banjo fashion axe</p>
-                        <div className="relative mb-4">
-                            <label htmlFor="email" className="text-sm leading-7 text-gray-600">Email</label>
-                            <input type="email" id="email" name="email" className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200" />
+                <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+                    <a class="mr-5 hover:text-gray-900 border-2 px-4 rounded-full cursor-pointer">people</a>
+                    <a class="mr-5 hover:text-gray-900 border-2 px-4 rounded-full cursor-pointer">places</a>
+                    <a class="mr-5 hover:text-gray-900 border-2 px-4 rounded-full cursor-pointer">events</a>
+                </nav>
+                <div class="relative inline-block text-left">
+                    <div>
+                        <button type="button" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                            Timeline
+                            <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                        <div class="py-1" role="none">
+                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">keweenaw 1852 - 1894</a>
+                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">keweenaw 1895 - 1904</a>
+                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">keweenaw 1905 - 1913</a>
+                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">keweenaw 1914 - 1924</a>
+                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4">keweenaw 1925 - 1938</a>
+                            <form method="POST" action="#" role="none">
+                                <button type="submit" class="text-gray-700 block w-full px-4 py-2 text-left text-sm border-t-2" role="menuitem" tabindex="-1" id="menu-item-3">close</button>
+                            </form>
                         </div>
-                        <div className="relative mb-4">
-                            <label htmlFor="message" className="text-sm leading-7 text-gray-600">Message</label>
-                            <textarea id="message" name="message" className="w-full h-32 px-3 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
-                        </div>
-                        <button className="px-6 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">Button</button>
-                        <p className="mt-3 text-xs text-gray-500">Chicharrones blog helvetica normcore iceland tousled brook viral artisan.</p>
                     </div>
                 </div>
-            </section >
-        </div >
-    );
+            </div>
+        </header>
+    )
 }
