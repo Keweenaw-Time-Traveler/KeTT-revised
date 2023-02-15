@@ -1,14 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import Index from './components/Navbar';
+import MapView from './components/MapView'
+import MainLayer from './components/MainLayer'
 import './App.css';
-import TimelineTitle from './components/timeline_title';
+
 
 function App() {
   return (
     <div className="App">
-      <Index />
-      <TimelineTitle />
+      <MapView />
+      <div className='html-component'>
+        <MainLayer />
+      </div>
+
     </div>
   );
 }

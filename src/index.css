@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "https://js.arcgis.com/4.25/@arcgis/core/assets/esri/themes/light/main.css";
 
 body {
   margin: 0;
@@ -14,4 +15,19 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+.mapDiv {
+  height: 100vh;
+  width: 100%;
+}
+
+#layerToggle {
+  top: 20px;
+  right: 20px;
+  position: absolute;
+  z-index: 99;
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+  opacity: 0.75;
 }
