@@ -18,12 +18,6 @@ function App() {
     const inputRef = useRef(null);
 
     const [view, setView] = useState(null);
-    const transportationLayer = new TileLayer({
-        url: "https://server.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer",
-        // This property can be used to uniquely identify the layer
-        id: "streets",
-        visible: false
-    })
     const housingLayer = new TileLayer({
         url: "https://tiles.arcgis.com/tiles/nGt4QxSblgDfeJn9/arcgis/rest/services/New_York_Housing_Density/MapServer",
         id: "ny-housing",
@@ -32,7 +26,6 @@ function App() {
     const webmap = new WebMap({
         basemap: 'topo-vector',
         ground: 'world-elevation',
-        layers: [transportationLayer]
     });
     webmap.add(housingLayer);
 
@@ -41,7 +34,11 @@ function App() {
             container: mapDiv.current,
             map: webmap,
             center: [-71.6899, 43.0598],
-            zoom: 12
+            zoom: 12,
+            ui: {
+                components: [
+                ]
+            }
         });
         setView(newView);
     }, []);
@@ -101,13 +98,14 @@ function App() {
             view.ui.add(locateWidget, "bottom-left")
 
             const searchWidget = new Search({
-                view
+                view,
+                container: 'searchInput'
             })
             searchWidget.popupTemplate = {
                 title: '{name}',
-                content: '{address}'
+                content: '{address}',
             };
-            view.ui.add(searchWidget, "top-left")
+            // view.ui.add(searchWidget, "top-left")
 
             searchWidget.on('select-result', (event) => {
                 // onSearch(event.result);
@@ -158,18 +156,12 @@ function App() {
     }, [view]);
 
 
-    const handleStreetLayerToggle = e => {
-        transportationLayer.visible = e.target.checked;
-    };
 
 
     return (
         <div>
             <div className="mapDiv" ref={mapDiv}>
-                <div id="basemapGalleryDiv"></div>
-                <span id="layerToggle" className="esri-widget">
-                    <input type="checkbox" id="streetsLayer" onChange={handleStreetLayerToggle} /> Transportation
-                </span>
+
             </div>
 
         </div>
