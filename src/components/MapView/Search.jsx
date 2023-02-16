@@ -1,36 +1,41 @@
 import React, { useRef, useEffect } from 'react';
+import configureStore from '../../store/configureStore';
+import { useState } from 'react';
+import { locationToAddress } from '@arcgis/core/rest/locator';
+import { getMapView } from '../../store/reducers/mapViewReducer';
 
-export default function SearchInput({ onSearch, view }) {
+export default function Search({ view }) {
     const inputRef = useRef(null);
-
     useEffect(() => {
-        // Load the necessary ArcGIS modules
-        window.require([
-            'esri/widgets/Search'
-        ], (Search) => {
-            const search = new Search({
-                view: view,
-                includeDefaultSources: false,
-                sources: []
-            });
+        if (view) {
+            // Load the necessary ArcGIS modules
+            console.log('====================================');
+            console.log("View is created");
+            console.log('====================================');
+            view.on('click', (event) => {
+                const lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
+                const lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
 
-            // Override the default template for the Search widget
-            search.popupTemplate = {
-                title: '{name}',
-                content: '{address}'
-            };
+                const params = {
+                    location: event.mapPoint
+                };
+                // console.log(event)
+                locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", params).then((res) => {
+                    console.log("Location result is ", res.address)
+                    view.popup.content = res.address
+                }).catch(() => {
+                    // If the promise fails and no result is found, show a generic message
+                    view.popup.content = "No address was found for this location";
+                });
+                view.popup.open({
+                    // Set the popup's title to the coordinates of the clicked location
+                    title: "Reverse geocode: [" + lon + ", " + lat + "]",
+                    location: event.mapPoint // Set the location of the popup to the clicked location
+                });
 
-            view.ui.add(search, 'top-right');
-
-            // Handle the search event
-            search.on('select-result', (event) => {
-                onSearch(event.result);
-            });
-
-            // Save a reference to the input element for styling
-            inputRef.current = document.querySelector('.esri-search__input');
-        });
-    }, []);
+            })
+        }
+    }, [view]);
 
     return (
         <div className="relative">

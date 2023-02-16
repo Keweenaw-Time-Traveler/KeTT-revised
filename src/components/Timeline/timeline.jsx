@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 
 const Timeline = () => {
     const [items, setItems] = useState([]);
-    const [close, setClose] = useState(true);
     useEffect(() => {
         fetch("https://geospatialresearch.mtu.edu/date_picker.php")
             .then(res => res.json())
@@ -23,7 +22,7 @@ const Timeline = () => {
                     </svg>
                 </option>
                 {items.map((item, i) => (
-                    <option key={i} class="text-gray-700 block px-4 py-2 text-sm" tabIndex="1" id="menu-item-1">Keweenaw {item.min} - {item.max}</option>
+                    <option key={i} class="text-gray-700 block px-4 py-2 text-sm" tabIndex="1" id="menu-item-1" value="select1">Keweenaw {item.min} - {item.max}</option>
                 ))}
             </select>
         </div >

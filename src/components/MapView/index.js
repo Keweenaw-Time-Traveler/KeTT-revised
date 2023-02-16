@@ -10,9 +10,22 @@ import Graphic from '@arcgis/core/Graphic'
 import { SimpleMarkerSymbol } from '@arcgis/core/symbols'
 import './styles.css'
 
+import { addMapView } from "../../store/reducers/mapViewReducer";
+import configureStore from "../../store/configureStore";
+import SearchInput from "./Search";
+
+
 
 
 function App() {
+
+    const store = configureStore();
+
+    store.subscribe(() => {
+        console.log("State Changed")
+        console.log(store.getState());
+    })
+
 
     const mapDiv = useRef(null);
     const inputRef = useRef(null);
@@ -40,7 +53,9 @@ function App() {
                 ]
             }
         });
-        setView(newView);
+        addMapView(newView);
+
+        store.dispatch(addMapView({ newView }))
     }, []);
 
     useEffect(() => {
@@ -64,28 +79,6 @@ function App() {
                 })
             })
             view.popup.autoOpenEnabled = false
-            view.on('click', (event) => {
-                const lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
-                const lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
-
-                const params = {
-                    location: event.mapPoint
-                };
-                // console.log(event)
-                locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", params).then((res) => {
-                    console.log("Location result is ", res.address)
-                    view.popup.content = res.address
-                }).catch(() => {
-                    // If the promise fails and no result is found, show a generic message
-                    view.popup.content = "No address was found for this location";
-                });
-                view.popup.open({
-                    // Set the popup's title to the coordinates of the clicked location
-                    title: "Reverse geocode: [" + lon + ", " + lat + "]",
-                    location: event.mapPoint // Set the location of the popup to the clicked location
-                });
-
-            })
 
 
             let locateWidget = new Locate({
@@ -160,6 +153,8 @@ function App() {
 
     return (
         <div>
+
+            {/* <SearchInput view={view} /> */}
             <div className="mapDiv" ref={mapDiv}>
 
             </div>
