@@ -4,13 +4,13 @@ import Timeline from './timeline';
 function TimelineTitle() {
     return (
         <div>
-            <footer class="text-gray-600 body-font flex items-center justify-center fixed bottom-[7%] left-[50%] translate-x-[-50%] z-[-1]">
-                <div class="relative text-left mx-auto md:hidden inline-block">
+            <footer className="text-gray-600 body-font flex items-center justify-center fixed bottom-[7%] left-[50%] translate-x-[-50%] z-[-1]">
+                <div className="relative inline-block mx-auto text-left md:hidden">
                     <Timeline />
                 </div >
-                <div class="relative overflow-hidden hidden md:inline-block">
-                    <div class="p-4 bg-white rounded-lg shadow-lg flex items-center">
-                        <h2 class="text-l font-bold">{'Some Text'}  1850-2023</h2>
+                <div className="relative hidden overflow-hidden md:inline-block">
+                    <div className="flex items-center p-4 bg-white rounded-lg shadow-lg">
+                        <h2 className="font-bold text-l">{'Some Text'}  1850-2023</h2>
                     </div>
                 </div>
             </footer>

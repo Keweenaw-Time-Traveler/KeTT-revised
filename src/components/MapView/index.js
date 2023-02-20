@@ -5,28 +5,17 @@ import WebMap from "@arcgis/core/WebMap";
 import TileLayer from '@arcgis/core/layers/TileLayer'
 import { locationToAddress } from '@arcgis/core/rest/locator'
 import Locate from '@arcgis/core/widgets/Locate'
-import Search from '@arcgis/core/widgets/Search'
 import Graphic from '@arcgis/core/Graphic'
 import { SimpleMarkerSymbol } from '@arcgis/core/symbols'
 import './styles.css'
-
 import { addMapView } from "../../store/reducers/mapViewReducer";
 import configureStore from "../../store/configureStore";
-import SearchInput from "./Search";
-
-
+import Search from '@arcgis/core/widgets/Search';
 
 
 function App() {
 
     const store = configureStore();
-
-    store.subscribe(() => {
-        console.log("State Changed")
-        console.log(store.getState());
-    })
-
-
     const mapDiv = useRef(null);
     const inputRef = useRef(null);
 
@@ -53,8 +42,6 @@ function App() {
                 ]
             }
         });
-        addMapView(newView);
-
         store.dispatch(addMapView({ newView }))
     }, []);
 
@@ -156,7 +143,6 @@ function App() {
 
             {/* <SearchInput view={view} /> */}
             <div className="mapDiv" ref={mapDiv}>
-
             </div>
 
         </div>

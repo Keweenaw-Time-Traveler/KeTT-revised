@@ -2,24 +2,26 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const slice = createSlice({
     name: 'mapViewReducer',
-    initialState: [],
+    initialState: {
+        value: null
+    },
     reducers: {
         addMapView: (mapView, action) => {
             console.log("Action call is ", action)
-            mapView[0] = action.payload.newView
+            mapView.value = action.payload.newView
         },
         updateMapView: (mapView, action) => {
-            mapView[0] = action.payload.mapView
+            mapView.value = action.payload.mapView
         },
         getMapView: (mapView, action) => {
-            mapView[1] = ''
+            mapView.value = ''
         },
         resetMapView: (mapView, action) => {
-            mapView[0] = null
+            mapView.value = null
         },
     }
 })
 // console.log(slice)
 
 export const { addMapView, updateMapView, resetMapView, getMapView } = slice.actions;
-export default slice.reducer;
+export default slice;
