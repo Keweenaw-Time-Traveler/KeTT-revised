@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './styles/global.css';
+import 'react-toastify/dist/ReactToastify.css';
 import configureStore from './store/configureStore';
 
 const container = document.getElementById('root');

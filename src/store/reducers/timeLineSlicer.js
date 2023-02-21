@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
+import { timelinePickerUrl } from '../../assets/data/Apis/apis';
+import { axios } from 'axios';
 export const fetchTimelineData = createAsyncThunk(
     'timelinePicker/fetchTimelineData',
     async () => {
-        const response = await fetch('https://geospatialresearch.mtu.edu/date_picker.php');
+        const response = await axios.request(timelinePickerUrl)
+
         if (!response.ok) {
-            throw new Error('Failed to fetch timeline data');
+            console.log('Failed to fetch timeline data');
         }
         return response.json();
     }
@@ -37,6 +39,7 @@ const timelinePickerSlice = createSlice({
         builder.addCase(fetchTimelineData.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
+
         });
     }
 });
