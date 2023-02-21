@@ -29,10 +29,10 @@ const timelinePickerSlice = createSlice({
             state.error = null;
         });
         builder.addCase(fetchTimelineData.fulfilled, (state, action) => {
-            console.log("Thunk Slice Log is ", action);
+            // console.log("Thunk Slice Log is ", action);
             state.loading = false;
             state.timelineData = action.payload.segments;
-            console.log("Updated timelineData is ", state.timelineData);
+            // console.log("Updated timelineData is ", state.timelineData);
         });
         builder.addCase(fetchTimelineData.rejected, (state, action) => {
             state.loading = false;

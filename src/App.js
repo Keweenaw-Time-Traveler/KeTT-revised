@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <MapView />
-      {/* <Search /> */}
+      <Search />
       <div className='html-component'>
         <MainLayer />
       </div>

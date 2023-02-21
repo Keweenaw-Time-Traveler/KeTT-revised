@@ -10,11 +10,15 @@ export default function Search() {
 
     const store = configureStore(mapView.reducer);
     const dispatch = useDispatch();
-    const view = useSelector(state => state.mapView)
+    const [view, setView] = useState(null)
+    const newView = useSelector((state) => state.mapView.value)
 
     useEffect(() => {
-        // dispatch(addMapView());
-    }, [dispatch]);
+        console.log('====================================');
+        console.log("View is ", newView);
+        console.log('====================================');
+        setView(newView)
+    }, [newView]);
     const inputRef = useRef(null);
 
 

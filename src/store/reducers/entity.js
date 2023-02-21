@@ -6,6 +6,6 @@ import timelineSlice from './timeLineSlicer';
 
 export default combineReducers({
     mapView: mapViewReducer.reducer,
-    // mapSlice: ma pSlice,
+    mapSlice: mapSlice,
     timeline: timelineSlice
 })
