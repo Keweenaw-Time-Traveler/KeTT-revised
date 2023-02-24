@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { timelinePickerUrl } from '../../assets/data/Apis/apis';
-import { axios } from 'axios';
+import axios from 'axios';
 export const fetchTimelineData = createAsyncThunk(
     'timelinePicker/fetchTimelineData',
     async () => {
-        const response = await axios.request(timelinePickerUrl)
-
-        if (!response.ok) {
+        try {
+            const response = await axios.get(timelinePickerUrl);
+            return response.data;
+        } catch (error) {
             console.log('Failed to fetch timeline data');
+            throw error;
         }
-        return response.json();
     }
 );
 

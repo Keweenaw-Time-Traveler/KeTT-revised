@@ -28,8 +28,9 @@ function App() {
     const webmap = new WebMap({
         basemap: 'topo-vector',
         ground: 'world-elevation',
+        portalItem: 'https://portal1-geo.sabu.mtu.edu/server/rest/services/KeweenawHSDI/KeTT_1928_FIPS/MapServer'
     });
-    webmap.add(housingLayer);
+    // webmap.add();
 
     useEffect(() => {
         const newView = new MapView({
@@ -37,10 +38,10 @@ function App() {
             map: webmap,
             center: [-71.6899, 43.0598],
             zoom: 12,
-            ui: {
-                components: [
-                ]
-            }
+            // ui: {
+            //     components: [
+            //     ]
+            // }
         });
         store.dispatch(addMapView({ newView }))
     }, []);

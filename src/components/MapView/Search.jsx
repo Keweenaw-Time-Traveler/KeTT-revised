@@ -14,23 +14,14 @@ export default function Search() {
     const newView = useSelector((state) => state.mapView.value)
 
     useEffect(() => {
-        console.log('====================================');
-        console.log("View is ", newView);
-        console.log('====================================');
         setView(newView)
     }, [newView]);
     const inputRef = useRef(null);
 
 
     useEffect(() => {
-        console.log('====================================');
-        console.log("View is outside the If condition ", view);
-        console.log('====================================');
         if (view == " ") {
             // Load the necessary ArcGIS modules
-            console.log('====================================');
-            console.log("View is created");
-            console.log('====================================');
             view.on('click', (event) => {
                 const lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
                 const lon = Math.round(event.mapPoint.longitude * 1000) / 1000;

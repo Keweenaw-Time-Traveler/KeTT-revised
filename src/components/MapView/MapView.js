@@ -1,26 +1,31 @@
-import { loadModules } from '@esri/core';
-import Map from '@arcgis/core/Map';
-import MapView from '@arcgis/core/views/MapView';
 
-export async function initializeMap(mapDiv) {
-    // Load the necessary ArcGIS modules
-    const [Map, MapView] = await loadModules([
-        'esri/Map',
-        'esri/views/MapView'
-    ]);
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import './styles.css'
+import { INIT_SCENE, SET_CENTER, initMap, setCenter } from "../../store/middleware/ArcGIS";
 
-    // Create a new instance of the Map
-    const map = new Map({
-        basemap: 'streets-navigation-vector'
-    });
+const MyComponent = () => {
+    const dispatch = useDispatch();
 
-    // Create a new instance of the MapView and set it to the mapDiv
-    const view = new MapView({
-        map: map,
-        container: mapDiv,
-        center: [-118.805, 34.027],
-        zoom: 13
-    });
+    const state = useSelector((state) => state.arcgis);
+    console.log("State is ", state);
+    useEffect(() => {
+        dispatch(initMap('ebf6c16641674d749e6b48130a2c8c6f', document.getElementById('mapDiv')));
+    }, []);
 
-    return { map, view };
-}
+    const handleClick = (e) => {
+        // e.prevent.
+
+        dispatch(setCenter(
+            [-71.6899, 43.0598]
+        ))
+    }
+
+
+    return (
+        <div id="mapDiv" >
+            <button className="mb-30" onClick={(e) => handleClick(e)}>Click me</button>
+        </div>);
+};
+
+export default MyComponent;

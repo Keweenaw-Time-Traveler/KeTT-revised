@@ -29,3 +29,7 @@ code {
   padding: 10px;
   opacity: 0.75;
 }
+
+.html-component {
+  display: none;
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import Timeline from "../Timeline/timeline";
+import Timeline from "../Timeline/Timeline";
 import NavbarData from '../../assets/data/Navbar/Tiles.json'
 import { NavbarSearchIcon } from "../../assets/icons/heroicons";
 

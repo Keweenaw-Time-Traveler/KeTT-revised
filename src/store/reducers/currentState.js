@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { defaultTimeLineMapURL } from '../../assets/data/Apis/apis';
 
 const initialState = {
     timeline: {
-        startDate: null,
-        endDate: null,
-        range: null,
+        startDate: 'default',
+        endDate: '',
+        url: defaultTimeLineMapURL,
     },
     searchType: null,
 };
@@ -14,7 +15,9 @@ const currentStateSlice = createSlice({
     initialState,
     reducers: {
         setTimeline: (state, action) => {
-            state.timeline = action.payload;
+            console.log("setTimeline() Log", action);
+            state.timeline.startDate = action.payload.year;
+            state.timeline.url = action.payload.url;
         },
         setSearchType: (state, action) => {
             state.searchType = action.payload;
