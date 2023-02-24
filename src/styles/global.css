@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "../index.css";
+@import "https://js.arcgis.com/4.25/@arcgis/core/assets/esri/themes/light/main.css";
+@import "../components/Navbar/styles.css";
+
+@layer components {
+  .inputBox {
+    @apply block w-full p-2.5 pl-10 text-sm border-gray-300 rounded-md shadow-sm sm:focus:ring-black focus:border-black;
+  }
+}

@@ -1,11 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
+import MapView from './components/MapView/'
+import MainLayer from './components/MainLayer'
+import Search from './components/MapView/Search'
+import Error from './components/Error'
 import './App.css';
-
 function App() {
   return (
     <div className="App">
-      <h1>KeTT APP Loading</h1>
+      <MapView />
+      {/* <Search /> */}
+      <div className='html-component'>
+        <MainLayer />
+        <Error />
+      </div>
+
     </div>
   );
 }

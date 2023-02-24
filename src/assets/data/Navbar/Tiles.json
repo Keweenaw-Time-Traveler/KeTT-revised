@@ -1,0 +1,16 @@
+{
+  "Tiles": [
+    {
+      "id": 1,
+      "name": "People"
+    },
+    {
+      "id": 2,
+      "name": "Places"
+    },
+    {
+      "id": 3,
+      "name": "Events"
+    }
+  ]
+}
