@@ -1,5 +1,5 @@
 import React from 'react';
-import MapView from './components/MapView/'
+import MapView from './components/MapView/MapView'
 import MainLayer from './components/MainLayer'
 import Search from './components/MapView/Search'
 import Error from './components/Error'

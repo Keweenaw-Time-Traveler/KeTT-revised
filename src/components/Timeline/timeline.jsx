@@ -23,8 +23,10 @@ const Timeline = () => {
 
     const handleOnChangeTimeLine = (year) => {
         const currentYearMap = itemsInStore?.filter((item) => item.map_year == year)
-        if (currentYearMap[0]?.url)
+        if (currentYearMap[0]?.url) {
             dispatch(setTimeline({ year, url: currentYearMap[0]?.url }))
+            dispatch()
+        }
         else
             dispatch(setError(timeLineNotFound))
     }

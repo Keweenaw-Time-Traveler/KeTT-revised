@@ -23,9 +23,16 @@ const MyComponent = () => {
 
 
     return (
-        <div id="mapDiv" >
-            <button className="mb-30" onClick={(e) => handleClick(e)}>Click me</button>
-        </div>);
+        <div>
+            {/* <button className=" z-10 mb-30 fixed p-30" onClick={(e) => handleClick(e)}>Click me</button> */}
+            <div id="mapDiv" >
+
+            </div>
+
+        </div>
+
+    )
+        ;
 };
 
 export default MyComponent;

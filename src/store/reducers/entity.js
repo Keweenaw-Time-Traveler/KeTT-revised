@@ -12,5 +12,5 @@ export default combineReducers({
     timeline: timelineSlice,
     errors: errorsSlice,
     currentState: currentState,
-    arcgis: arcgisReducer,
+    arcgisState: arcgisReducer,
 })
