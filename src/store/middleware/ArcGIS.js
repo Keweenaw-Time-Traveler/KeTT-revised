@@ -5,12 +5,13 @@ import MapView from '@arcgis/core/views/MapView';
 import WebMap from '@arcgis/core/WebMap';
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle';
 import Locate from '@arcgis/core/widgets/Locate';
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 
 
 
 export const INIT_SCENE = "INIT_SCENE"
-
 export const SET_CENTER = "SET_CENTER"
+export const SET_PORTAL_URL = "SET_PORTAL_URL"
 
 
 
@@ -23,6 +24,12 @@ export const initMap = (id, container) => ({
 export const setCenter = (center) => ({
     type: SET_CENTER,
     center
+})
+
+
+export const setPortalURl = (url) => ({
+    type: SET_PORTAL_URL,
+    url
 })
 
 // Global variable for ArcGIS objects
@@ -50,7 +57,10 @@ export const arcGisMiddleware = store => (next) => (action) => {
                 {
                     container: arcgis.container,
                     center: arcgisState.center,
-                    zoom: arcgisState.zoom
+                    zoom: arcgisState.zoom,
+                    ui: {
+                        components: []
+                    }
                 }
             );
 
@@ -60,8 +70,8 @@ export const arcGisMiddleware = store => (next) => (action) => {
             const webScene = new WebMap(
                 {
                     basemap: 'topo-vector',
-                    ground: 'world-elevation',
-                    portalItem: 'https://portal1-geo.sabu.mtu.edu/server/rest/services/KeweenawHSDI/KeTT_1928_FIPS/MapServer'
+                    // ground: 'world-elevation',
+                    // portalItem: 'https://portal1-geo.sabu.mtu.edu/server/rest/services/KeweenawHSDI/KeTT_1928_FIPS/MapServer'
                 }
             );
             arcgis.mapView.map = webScene;
@@ -98,20 +108,71 @@ export const arcGisMiddleware = store => (next) => (action) => {
                 .then(() => {
                     webScene.layers.items.forEach((layer) => { layer.popupEnabled = false; });
 
-                    next({ ...action, name: webScene.portalItem.title });
+                    // next({ ...action, name: webScene.portalItem.title });
 
                     return arcgis.mapView.whenLayerView(webScene.layers.getItemAt(0));
                 })
         };
         case SET_CENTER: {
-
-            console.log();
             if (arcgis.mapView) {
                 arcgis.mapView.center = arcgisState.center;
             }
+            break;
+        }
+        case SET_PORTAL_URL: {
+            if (!arcgis.mapView) break;
+
+            console.log("Layering Started Called");
+            const layer = new TileLayer({
+                id: "Timeline-Layer",
+                url: action.url,
+                opacity: 0.7
+            });
+
+            const transportationLayer = new TileLayer({
+                url: "https://server.arcgisonline.com/arcgis/rest/services/Reference/World_Transportation/MapServer",
+                id: "streets",
+                opacity: 0.7
+            });
+
+            const webMap = arcgis.mapView.map;
+            webMap.removeAll();
+            webMap.add(layer)
+            // webMap.add(transportationLayer);
+
+            webMap.on("layer-view-create", (event) => {
+                console.log("Inside the Layer view Created");
+                if (event.layer.id === "Timeline-Layer") {
+                    console.log(
+                        "LayerView for Timeline is population created!",
+                        event.layerView
+                    );
+                }
+                if (event.layer.id === "streets") {
+                    // Explore the properties of the transportation layer's layer view here
+                    console.log("LayerView for streets created!", event.layerView);
+                }
+            })
+
+            layer.when(() => {
+                console.log("Inside the Layer view Created");
+                webMap.layers.items.forEach((layer) => { layer.popupEnabled = false; });
+
+                const layerView = arcgis.mapView.whenLayerView(layer);
+                return layerView.then(() => {
+
+                    console.log("Layer has been loaded successfully");
+                    // Do any additional actions after the layer view has been created
+                });
+            }).catch((error) => {
+                console.log('====================================');
+                console.log("Error in Layer creation", error);
+                console.log('====================================');
+            });
 
             break;
         }
+
         default:
             return next(action);
     }

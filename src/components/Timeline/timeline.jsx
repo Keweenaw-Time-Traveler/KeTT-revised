@@ -5,6 +5,7 @@ import { fetchTimelineData } from '../../store/reducers/timeLineSlicer';
 import { setTimeline } from '../../store/reducers/currentState';
 import { setError } from '../../store/reducers/errorsSlice';
 import { timeLineNotFound } from '../../assets/data/Errors/customMessages';
+import { setPortalURl } from '../../store/middleware/ArcGIS';
 
 
 const Timeline = () => {
@@ -23,9 +24,10 @@ const Timeline = () => {
 
     const handleOnChangeTimeLine = (year) => {
         const currentYearMap = itemsInStore?.filter((item) => item.map_year == year)
+        // console.log("CurrentYear Map in Timeline is ", currentYearMap);
         if (currentYearMap[0]?.url) {
-            dispatch(setTimeline({ year, url: currentYearMap[0]?.url }))
-            dispatch()
+            dispatch(setTimeline({ year, url: currentYearMap[0]?.url, startDate: currentYearMap[0]?.min, endDate: currentYearMap[0].max }))
+            dispatch(setPortalURl(currentYearMap[0].url))
         }
         else
             dispatch(setError(timeLineNotFound))
@@ -40,7 +42,7 @@ const Timeline = () => {
                 <option value='default' className="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" role="menuitem" tabIndex="-1" id="menu-item-1">Timeline
 
                 </option>
-                {items?.length > 0 ? items.map((item, i) => (
+                {items ? items.map((item, i) => (
                     <option key={i} className="block px-4 py-2 text-sm text-gray-700" value={item.map_year} >{item.min} - {item.max}</option>
                 )) : "<Loading>"}
             </select>

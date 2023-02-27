@@ -2,6 +2,7 @@ import axios from "axios"
 import * as actions from '../actionCreators/api'
 import timelineReducer from '../reducers/timelineReducer'
 import { timeLineReceived } from '../reducers/timelineReducer'
+import { timelinePickerUrl } from "../../assets/data/Apis/apis"
 
 const api = ({ dispatch }) => next => async action => {
 
@@ -16,7 +17,7 @@ const api = ({ dispatch }) => next => async action => {
 
     try {
         const response = await axios.request({
-            url: 'https://geospatialresearch.mtu.edu/date_picker.php',
+            url: timelinePickerUrl,
             method,
             data
         });

@@ -8,9 +8,8 @@ export const ARC_GIS_MAP_UPDATED = "arcgis/mapUpdated";
 
 const initialState = {
     mapId: "",
-    center: [-71.6899, 43.0598],
-    zoom: 12
-
+    center: [- 88.5369, 47.1127],
+    zoom: 10
 };
 
 const arcgisSlice = createSlice({
