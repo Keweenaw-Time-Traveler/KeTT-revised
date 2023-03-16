@@ -1,11 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchTimelineData } from '../../store/reducers/timeLineSlicer';
+// import { fetchTimelineData } from '../../store/reducers/timeLineSlicer';
 import { setTimeline } from '../../store/reducers/currentState';
 import { setError } from '../../store/reducers/errorsSlice';
 import { timeLineNotFound } from '../../assets/data/Errors/customMessages';
-import { setPortalURl } from '../../store/middleware/ArcGIS';
+import { setPortalURl } from '../../store/middleware/ArcGisActionCreator';
 
 
 const Timeline = () => {
@@ -13,9 +13,7 @@ const Timeline = () => {
     const currentYearFromStore = useSelector((state) => state.currentState?.timeline?.currentYear)
     const itemsInStore = useSelector((state) => state.timeline?.timelineData);
     const [items, setItems] = useState([]);
-    useEffect(() => {
-        dispatch(fetchTimelineData());
-    }, [dispatch]);
+
 
     useEffect(() => {
         // console.log("Item are", itemsInStore);

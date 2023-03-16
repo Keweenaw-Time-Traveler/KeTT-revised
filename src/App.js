@@ -1,19 +1,35 @@
 import React from 'react';
 import MapView from './components/MapView/MapView'
 import MainLayer from './components/MainLayer'
-import Search from './components/MapView/Search'
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import Error from './components/Error'
 import './App.css';
+import { fetchTimelineData } from './store/reducers/timeLineSlicer';
+import { setCenter } from './store/middleware/ArcGisActionCreator';
 function App() {
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTimelineData());
+  }, [dispatch]);
+
+  const handleClick = (e) => {
+    dispatch(setCenter(
+      { latitude: -71.6899, longitude: 43.0598 }
+    ))
+  }
+
   return (
     <div className="App">
       <MapView />
       {/* <Search /> */}
       <div className='html-component'>
+        <button className="fixed z-10 mt-20 p-30" onClick={(e) => handleClick(e)}>Click me</button>
         <MainLayer />
         <Error />
       </div>
-
     </div>
   );
 }

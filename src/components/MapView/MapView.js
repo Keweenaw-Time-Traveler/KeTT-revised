@@ -2,7 +2,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import './styles.css'
-import { INIT_SCENE, SET_CENTER, initMap, setCenter } from "../../store/middleware/ArcGIS";
+// import { initMap, setCenter } from "../../store/middleware/ArcGIS";
+import { initMap, setCenter } from '../../store/middleware/ArcGisActionCreator';
 
 const MyComponent = () => {
     const dispatch = useDispatch();
@@ -13,18 +14,10 @@ const MyComponent = () => {
         dispatch(initMap('ebf6c16641674d749e6b48130a2c8c6f', document.getElementById('mapDiv')));
     }, []);
 
-    const handleClick = (e) => {
-        // e.prevent.
-
-        dispatch(setCenter(
-            [-71.6899, 43.0598]
-        ))
-    }
-
 
     return (
         <div>
-            {/* <button className=" z-10 mb-30 fixed p-30" onClick={(e) => handleClick(e)}>Click me</button> */}
+
             <div id="mapDiv" >
 
             </div>

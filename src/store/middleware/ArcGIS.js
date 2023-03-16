@@ -1,36 +1,12 @@
-
 import Graphic from '@arcgis/core/Graphic';
 import TileLayer from '@arcgis/core/layers/TileLayer';
 import MapView from '@arcgis/core/views/MapView';
 import WebMap from '@arcgis/core/WebMap';
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle';
 import Locate from '@arcgis/core/widgets/Locate';
-import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
+import { Point } from '@arcgis/core/geometry'
+import { INIT_SCENE, SET_CENTER, SET_PORTAL_URL } from './ArcGisActionCreator';
 
-
-
-export const INIT_SCENE = "INIT_SCENE"
-export const SET_CENTER = "SET_CENTER"
-export const SET_PORTAL_URL = "SET_PORTAL_URL"
-
-
-
-export const initMap = (id, container) => ({
-    type: INIT_SCENE,
-    id,
-    container
-});
-
-export const setCenter = (center) => ({
-    type: SET_CENTER,
-    center
-})
-
-
-export const setPortalURl = (url) => ({
-    type: SET_PORTAL_URL,
-    url
-})
 
 // Global variable for ArcGIS objects
 const arcgis = window.arcgis || {};
@@ -114,8 +90,25 @@ export const arcGisMiddleware = store => (next) => (action) => {
                 })
         };
         case SET_CENTER: {
+
             if (arcgis.mapView) {
-                arcgis.mapView.center = arcgisState.center;
+
+
+                arcgis.mapView.goTo({
+                    zoom: 7
+                }, {
+                    duration: 2000
+                }).then(() => {
+                    const center = new Point(arcgisState.center)
+                    arcgis.mapView.goTo({
+                        center,
+                        zoom: 14
+                    }, {
+                        duration: 3000
+                    })
+
+                })
+
             }
             break;
         }
