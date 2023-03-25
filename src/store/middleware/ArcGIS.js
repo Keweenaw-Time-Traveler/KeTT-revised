@@ -7,93 +7,62 @@ import Locate from '@arcgis/core/widgets/Locate';
 import { Point } from '@arcgis/core/geometry'
 import { INIT_SCENE, SET_CENTER, SET_PORTAL_URL } from './ArcGisActionCreator';
 
-
 // Global variable for ArcGIS objects
 const arcgis = window.arcgis || {};
 
 // Middleware
 export const arcGisMiddleware = store => (next) => (action) => {
-
-
     const { arcgisState } = store.getState();
     switch (action.type) {
         case INIT_SCENE: {
             if (!action.id || !action.container) break;
-
-            // if mapView container is already initialized, just add it back to the DOM.
             if (arcgis.container) {
                 action.container.appendChild(arcgis.container);
                 break;
             }
-
-            // Otherwise, create a new container element and a new scene view.
             arcgis.container = document.createElement('DIV');
             action.container.appendChild(arcgis.container);
-            arcgis.mapView = new MapView(
-                {
-                    container: arcgis.container,
-                    center: arcgisState.center,
-                    zoom: arcgisState.zoom,
-                    ui: {
-                        components: []
-                    }
+            // arcgis = { ...arcgis, center: 35 }
+            arcgis.mapView = new MapView({
+                container: arcgis.container,
+                center: arcgisState.center,
+                zoom: arcgisState.zoom,
+                ui: {
+                    components: []
                 }
-            );
-
-            // registerClickEvent(arcgis.mapView, store);
-
-            // Initialize web scene
-            const webScene = new WebMap(
-                {
-                    basemap: 'topo-vector',
-                    // ground: 'world-elevation',
-                    // portalItem: 'https://portal1-geo.sabu.mtu.edu/server/rest/services/KeweenawHSDI/KeTT_1928_FIPS/MapServer'
-                }
-            );
+            });
+            const webScene = new WebMap({
+                basemap: 'topo-vector'
+            });
             arcgis.mapView.map = webScene;
-
-            let locateWidget = new Locate({
-                view: arcgis.mapView,   // Attaches the Locate button to the view
+            const locateWidget = new Locate({
+                view: arcgis.mapView,
                 graphic: new Graphic({
-                    symbol: { type: "simple-marker" }  // overwrites the default symbol used for the
-                    // graphic placed at the location of the user when found
+                    symbol: { type: "simple-marker" }
                 })
             });
             arcgis.mapView.ui.add(locateWidget, "bottom-left")
-
             const toggle = new BasemapToggle({
-                // 2 - Set properties
-                view: arcgis.mapView, // view that provides access to the map's 'topo-vector' basemap
-                nextBasemap: "hybrid", // allows for toggling to the 'hybrid' basemap
-
+                view: arcgis.mapView,
+                nextBasemap: "hybrid"
             });
-
-            // Add widget to the top right corner of the view
             arcgis.mapView.ui.add(toggle, "bottom-right");
-
-
             const housingLayer = new TileLayer({
                 url: "https://tiles.arcgis.com/tiles/nGt4QxSblgDfeJn9/arcgis/rest/services/New_York_Housing_Density/MapServer",
                 id: "ny-housing",
                 opacity: 0.9
             });
-
             webScene.add(housingLayer)
-            // When initialized...
-            return Promise.resolve(webScene)
-                .then(() => {
-                    webScene.layers.items.forEach((layer) => { layer.popupEnabled = false; });
-
-                    // next({ ...action, name: webScene.portalItem.title });
-
-                    return arcgis.mapView.whenLayerView(webScene.layers.getItemAt(0));
-                })
+            // To-Do About Implementation
+            // Promise.resolve(webScene)
+            //     .then(() => {
+            //         webScene.layers.items.forEach((layer) => { layer.popupEnabled = false; });
+            //         return arcgis.mapView.whenLayerView(webScene.layers.getItemAt(0));
+            //     })
+            break;
         };
         case SET_CENTER: {
-
             if (arcgis.mapView) {
-
-
                 arcgis.mapView.goTo({
                     zoom: 7
                 }, {
@@ -106,28 +75,17 @@ export const arcGisMiddleware = store => (next) => (action) => {
                     }, {
                         duration: 3000
                     })
-
                 })
-
             }
             break;
         }
         case SET_PORTAL_URL: {
             if (!arcgis.mapView) break;
-
-            console.log("Layering Started Called");
             const layer = new TileLayer({
                 id: "Timeline-Layer",
                 url: action.url,
                 opacity: 0.7
             });
-
-            const transportationLayer = new TileLayer({
-                url: "https://server.arcgisonline.com/arcgis/rest/services/Reference/World_Transportation/MapServer",
-                id: "streets",
-                opacity: 0.7
-            });
-
             const webMap = arcgis.mapView.map;
             webMap.removeAll();
             webMap.add(layer)
@@ -167,6 +125,8 @@ export const arcGisMiddleware = store => (next) => (action) => {
         }
 
         default:
-            return next(action);
+            next(action);
     }
 };
+
+
