@@ -25,7 +25,6 @@ const Timeline = () => {
         // console.log("CurrentYear Map in Timeline is ", currentYearMap);
         if (currentYearMap[0]?.url) {
             dispatch(setTimeline({ year, url: currentYearMap[0]?.url, startDate: currentYearMap[0]?.min, endDate: currentYearMap[0].max }))
-            dispatch(setPortalURl(currentYearMap[0].url))
         }
         else
             dispatch(setError(timeLineNotFound))

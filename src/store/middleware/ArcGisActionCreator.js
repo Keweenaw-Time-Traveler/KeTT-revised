@@ -1,6 +1,6 @@
 export const INIT_SCENE = "INIT_SCENE"
 export const SET_CENTER = "SET_CENTER"
-export const SET_PORTAL_URL = "SET_PORTAL_URL"
+export const SET_PORTAL_URL = "currentState/setTimeline"
 
 
 export const initMap = (id, container) => ({

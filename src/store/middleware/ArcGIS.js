@@ -6,6 +6,7 @@ import BasemapToggle from '@arcgis/core/widgets/BasemapToggle';
 import Locate from '@arcgis/core/widgets/Locate';
 import { Point } from '@arcgis/core/geometry'
 import { INIT_SCENE, SET_CENTER, SET_PORTAL_URL } from './ArcGisActionCreator';
+import { setTimeline } from '../reducers/currentState';
 
 // Global variable for ArcGIS objects
 const arcgis = window.arcgis || {};
@@ -31,10 +32,10 @@ export const arcGisMiddleware = store => (next) => (action) => {
                     components: []
                 }
             });
-            const webScene = new WebMap({
+            const webMap = new WebMap({
                 basemap: 'topo-vector'
             });
-            arcgis.mapView.map = webScene;
+            arcgis.mapView.map = webMap;
             const locateWidget = new Locate({
                 view: arcgis.mapView,
                 graphic: new Graphic({
@@ -52,12 +53,12 @@ export const arcGisMiddleware = store => (next) => (action) => {
                 id: "ny-housing",
                 opacity: 0.9
             });
-            webScene.add(housingLayer)
+            webMap.add(housingLayer)
             // To-Do About Implementation
-            // Promise.resolve(webScene)
+            // Promise.resolve(webMap)
             //     .then(() => {
-            //         webScene.layers.items.forEach((layer) => { layer.popupEnabled = false; });
-            //         return arcgis.mapView.whenLayerView(webScene.layers.getItemAt(0));
+            //         webMap.layers.items.forEach((layer) => { layer.popupEnabled = false; });
+            //         return arcgis.mapView.whenLayerView(webMap.layers.getItemAt(0));
             //     })
             break;
         };
@@ -80,10 +81,12 @@ export const arcGisMiddleware = store => (next) => (action) => {
             break;
         }
         case SET_PORTAL_URL: {
+            const { url } = action.payload;
+            console.log("Action state in Portal is ", action, "Url is", url);
             if (!arcgis.mapView) break;
             const layer = new TileLayer({
                 id: "Timeline-Layer",
-                url: action.url,
+                url: url,
                 opacity: 0.7
             });
             const webMap = arcgis.mapView.map;
@@ -120,7 +123,8 @@ export const arcGisMiddleware = store => (next) => (action) => {
                 console.log("Error in Layer creation", error);
                 console.log('====================================');
             });
-
+            // store.dispatch(setTimeline({ map_year, url: url, startDate: min, endDate: max }))
+            next(action);
             break;
         }
 
