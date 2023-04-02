@@ -5,8 +5,8 @@ import WebMap from '@arcgis/core/WebMap';
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle';
 import Locate from '@arcgis/core/widgets/Locate';
 import { Point } from '@arcgis/core/geometry'
-import { INIT_SCENE, SET_CENTER, SET_PORTAL_URL } from './ArcGisActionCreator';
-import { setTimeline } from '../reducers/currentState';
+import { INIT_SCENE, SET_CENTER, SET_PORTAL_URL } from '../actionCreators/ArcGisActionCreator';
+import { setTimeline } from '../reducers/timeLineSlicer';
 
 // Global variable for ArcGIS objects
 const arcgis = window.arcgis || {};

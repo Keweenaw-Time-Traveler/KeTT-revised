@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { initMap, setCenter } from '../../store/middleware/ArcGisActionCreator';
+import { initMap, setCenter } from '../../store/actionCreators/ArcGisActionCreator';
 
 import './styles.css';
 

@@ -3,8 +3,9 @@ import Timeline from './Timeline';
 import { useSelector } from 'react-redux';
 
 function TimelineTitle() {
-    const { startDate, endDate } = useSelector((state) => state.currentState?.timeline)
-    // console.log("Started Date is ", startDate, "ENd Date is ", endDate);
+    const { startDate, endDate } = useSelector((state) => state.timeline?.selectedTime)
+    // console.log(useSelector((state) => state));
+
     return (
         <div>
             <footer className="text-gray-600 body-font flex items-center justify-center fixed bottom-[7%] left-[50%] translate-x-[-50%] z-[-1]">

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { timelinePickerUrl } from '../../assets/data/Apis/apis';
+import { defaultTimeLineMapURL } from '../../assets/data/Apis/apis';
 import axios from 'axios';
 export const fetchTimelineData = createAsyncThunk(
     'timelinePicker/fetchTimelineData',
@@ -14,16 +15,34 @@ export const fetchTimelineData = createAsyncThunk(
     }
 );
 
+const initialState = {
+    loading: false,
+    timelineData: null,
+    error: null,
+    selectedTime: {
+        map_year: 'default',
+        startDate: 1850,
+        endDate: 1894,
+        url: defaultTimeLineMapURL,
+    }
+}
+
 const timelinePickerSlice = createSlice({
     name: 'timelinePicker',
-    initialState: {
-        loading: false,
-        timelineData: null,
-        error: null
-    },
+    initialState,
     reducers: {
         clearTimelineData: (state) => {
             state.timelineData = null;
+        },
+        setTimeline: (state, { payload }) => {
+            // console.log("action is Timeline is", payload);
+            state.timeline = {
+                ...state.timeline,
+                map_year: payload.year,
+                url: payload.url ?? defaultTimeLineMapURL,
+                startDate: payload.startDate,
+                endDate: payload.endDate,
+            };
         }
     },
     extraReducers: (builder) => {
@@ -45,6 +64,6 @@ const timelinePickerSlice = createSlice({
     }
 });
 
-export const { clearTimelineData } = timelinePickerSlice.actions;
+export const { setTimeline, clearTimelineData } = timelinePickerSlice.actions;
 
 export default timelinePickerSlice.reducer;

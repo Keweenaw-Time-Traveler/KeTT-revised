@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from './middleware/logger';
 // import arcgisMiddleware from './middleware/arcgisMiddleware';
-import reducer from './reducers/entity';
+import reducer from './reducers/rootReducer';
 import { arcGisMiddleware } from './middleware/ArcGIS';
 
 
