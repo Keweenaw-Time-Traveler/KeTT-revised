@@ -1,6 +1,6 @@
 export const INIT_SCENE = "INIT_SCENE"
 export const SET_CENTER = "SET_CENTER"
-export const SET_PORTAL_URL = "timelinePickerSlice/setTimeline"
+export const SET_PORTAL_URL = "timelinePicker/selectedTimeline"
 
 
 export const initMap = (id, container) => ({

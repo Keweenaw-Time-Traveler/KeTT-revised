@@ -6,7 +6,7 @@ import BasemapToggle from '@arcgis/core/widgets/BasemapToggle';
 import Locate from '@arcgis/core/widgets/Locate';
 import { Point } from '@arcgis/core/geometry'
 import { INIT_SCENE, SET_CENTER, SET_PORTAL_URL } from '../actionCreators/ArcGisActionCreator';
-import { setTimeline } from '../reducers/timeLineSlicer';
+import { selectedTimeline } from '../reducers/timeLineSlicer';
 
 // Global variable for ArcGIS objects
 const arcgis = window.arcgis || {};
@@ -123,7 +123,7 @@ export const arcGisMiddleware = store => (next) => (action) => {
                 console.log("Error in Layer creation", error);
                 console.log('====================================');
             });
-            // store.dispatch(setTimeline({ map_year, url: url, startDate: min, endDate: max }))
+            // store.dispatch(selectedTimeline({ map_year, url: url, startDate: min, endDate: max }))
             next(action);
             break;
         }

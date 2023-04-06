@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 // import { fetchTimelineData } from '../../store/reducers/timeLineSlicer';
-import { setTimeline } from '../../store/reducers/timeLineSlicer';
+import { selectedTimeline } from '../../store/reducers/timeLineSlicer';
 import { setError } from '../../store/reducers/errorsSlice';
 import { timeLineNotFound } from '../../assets/data/Errors/customMessages';
 import { setPortalURl } from '../../store/actionCreators/ArcGisActionCreator';
@@ -24,7 +24,7 @@ const Timeline = () => {
         const currentYearMap = itemsInStore?.filter((item) => item.map_year == year)
         // console.log("CurrentYear Map in Timeline is ", currentYearMap);
         if (currentYearMap[0]?.url) {
-            dispatch(setTimeline({ year, url: currentYearMap[0]?.url, startDate: currentYearMap[0]?.min, endDate: currentYearMap[0].max }))
+            dispatch(selectedTimeline({ year, url: currentYearMap[0]?.url, startDate: currentYearMap[0]?.min, endDate: currentYearMap[0].max }))
         }
         else
             dispatch(setError(timeLineNotFound))

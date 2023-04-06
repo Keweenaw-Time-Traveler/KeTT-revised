@@ -4,7 +4,7 @@ import { defaultTimeLineMapURL } from '../../../assets/data/Apis/apis';
 const initialState = {
     timeline: {
         map_year: 'default',
-        startDate: 1850,
+        startDate: 185078,
         endDate: 1894,
         url: defaultTimeLineMapURL,
     },

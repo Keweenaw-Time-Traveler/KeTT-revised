@@ -34,9 +34,8 @@ const timelinePickerSlice = createSlice({
         clearTimelineData: (state) => {
             state.timelineData = null;
         },
-        setTimeline: (state, { payload }) => {
-            // console.log("action is Timeline is", payload);
-            state.timeline = {
+        selectedTimeline: (state, { payload }) => {
+            state.selectedTime = {
                 ...state.timeline,
                 map_year: payload.year,
                 url: payload.url ?? defaultTimeLineMapURL,
@@ -64,6 +63,6 @@ const timelinePickerSlice = createSlice({
     }
 });
 
-export const { setTimeline, clearTimelineData } = timelinePickerSlice.actions;
+export const { selectedTimeline, clearTimelineData } = timelinePickerSlice.actions;
 
 export default timelinePickerSlice.reducer;

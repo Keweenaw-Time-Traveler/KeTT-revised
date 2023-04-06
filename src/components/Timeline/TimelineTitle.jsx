@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 function TimelineTitle() {
     const { startDate, endDate } = useSelector((state) => state.timeline?.selectedTime)
-    // console.log(useSelector((state) => state));
 
     return (
         <div>
