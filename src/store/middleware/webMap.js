@@ -12,7 +12,7 @@ import { selectedTimeline } from '../reducers/timeLineSlicer';
 const arcgis = window.arcgis || {};
 
 // Middleware
-export const arcGisMiddleware = store => (next) => (action) => {
+export const webMap = store => (next) => (action) => {
     const { arcgisState } = store.getState();
     switch (action.type) {
         case INIT_SCENE: {
