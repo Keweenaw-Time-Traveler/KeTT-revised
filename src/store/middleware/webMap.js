@@ -6,7 +6,7 @@ import BasemapToggle from '@arcgis/core/widgets/BasemapToggle';
 import Locate from '@arcgis/core/widgets/Locate';
 import { Point } from '@arcgis/core/geometry'
 import { INIT_SCENE, SET_CENTER, SET_PORTAL_URL } from '../actionCreators/ArcGisActionCreator';
-import { selectedTimeline } from '../reducers/timeLineSlicer';
+import { selectedTimeline } from '../reducers/timelineSlice';
 
 // Global variable for ArcGIS objects
 const arcgis = window.arcgis || {};

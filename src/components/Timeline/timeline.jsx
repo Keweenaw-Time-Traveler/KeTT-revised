@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 // import { fetchTimelineData } from '../../store/reducers/timeLineSlicer';
-import { selectedTimeline } from '../../store/reducers/timeLineSlicer';
+import { selectedTimeline } from '../../store/reducers/timelineSlice';
 import { setError } from '../../store/reducers/errorsSlice';
 import { timeLineNotFound } from '../../assets/data/Errors/customMessages';
 import { setPortalURl } from '../../store/actionCreators/ArcGisActionCreator';

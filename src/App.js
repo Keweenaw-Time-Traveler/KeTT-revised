@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import Error from './components/Error'
 import './App.css';
-import { fetchTimelineData } from './store/reducers/timeLineSlicer';
+import { fetchTimelineData } from './store/reducers/timelineSlice';
 import { setCenter } from './store/actionCreators/ArcGisActionCreator';
 function App() {
 

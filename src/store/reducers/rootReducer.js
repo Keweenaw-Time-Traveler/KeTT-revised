@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import mapViewReducer from './unusedReducers/mapViewReducer';
 import mapSlice from './unusedReducers/mapSlice'
-import timelineSlice from './timeLineSlicer';
+import timelineSlice from './timelineSlice';
 import errorsSlice from './errorsSlice';
 import currentState from './unusedReducers/currentState';
 import arcgisReducer from './unusedReducers/ArcGisReducer';
