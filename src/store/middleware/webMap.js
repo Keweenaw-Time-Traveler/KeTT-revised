@@ -5,7 +5,7 @@ import WebMap from '@arcgis/core/WebMap';
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle';
 import Locate from '@arcgis/core/widgets/Locate';
 import { Point } from '@arcgis/core/geometry'
-import { INIT_SCENE, SET_CENTER, SET_PORTAL_URL } from '../actionCreators/ArcGisActionCreator';
+import { INIT_SCENE, SET_CENTER, SET_PLACE, SET_PORTAL_URL } from '../actionCreators/ArcGisActionCreator';
 import { selectedTimeline } from '../reducers/timelineSlice';
 
 // Global variable for ArcGIS objects
@@ -125,6 +125,73 @@ export const webMap = store => (next) => (action) => {
             });
             // store.dispatch(selectedTimeline({ map_year, url: url, startDate: min, endDate: max }))
             next(action);
+            break;
+        }
+        case SET_PLACE: {
+            console.log("Action is ", action);
+            if (arcgis.mapView) {
+                const geocodeUrl = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates";
+                const { place } = action;
+
+                const params = {
+                    f: "json",
+                    singleLine: place,
+                    outFields: "Match_addr, stAddr, City"
+                }
+
+                fetch(`${geocodeUrl}?${new URLSearchParams(params)}`)
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.candidates.length > 0) {
+                            const [firstCandidate] = result.candidates;
+                            const { location } = firstCandidate;
+                            const center = new Point(location.x, location.y);
+                            arcgis.mapView.goTo({
+                                zoom: 7
+                            }, {
+                                duration: 2000
+                            }).then(() => {
+                                arcgis.mapView.goTo({
+                                    target: center,
+                                    zoom: 12,
+                                }
+                                    ,
+                                    {
+                                        duration: 2000
+                                    }
+                                ).then(() => {
+                                    const popupTemplate = {
+                                        title: `{Match_addr}`,
+                                        content: `Street Address: {stAddr}<br>City: {City}`
+                                    };
+
+                                    const graphic = new Graphic({
+                                        geometry: center,
+                                        symbol: {
+                                            type: "simple-marker",
+                                            color: "blue",
+                                            size: "15px",
+                                            outline: {
+                                                color: [255, 255, 255],
+                                                width: "2px"
+                                            }
+                                        },
+                                        attributes: {
+                                            Match_addr: firstCandidate.attributes.Match_addr,
+                                            stAddr: firstCandidate.attributes.stAddr,
+                                            City: firstCandidate.attributes.City
+                                        },
+                                        popupTemplate
+                                    });
+
+                                    arcgis.mapView.graphics.removeAll();
+                                    arcgis.mapView.graphics.add(graphic);
+                                })
+                            });
+                        }
+                    })
+                    .catch(error => console.log('Error fetching geocoding result', error));
+            }
             break;
         }
 
