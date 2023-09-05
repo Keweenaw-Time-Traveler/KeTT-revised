@@ -26,7 +26,7 @@ function App() {
       <MapView />
       {/* <Search /> */}
       <div className='html-component'>
-        <button className="fixed z-10 mt-20 p-30" onClick={(e) => handleClick(e)}>Click me</button>
+        <button className="fixed z-10 mt-20 p-30 hidden" onClick={(e) => handleClick(e)}>Click me</button>
         <MainLayer />
         <Error />
       </div>

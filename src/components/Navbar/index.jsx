@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Timeline from "../Timeline/Timeline";
 import NavbarData from '../../assets/data/Navbar/Tiles.json';
 import { NavbarSearchIcon } from "../../assets/icons/heroicons";
+import { ChevronRightIcon } from '@heroicons/react/24/solid'
 import { useDispatch } from "react-redux";
 import { setSearchPlace } from "../../store/actionCreators/ArcGisActionCreator";
 import { Combobox } from "@headlessui/react";
@@ -13,6 +14,7 @@ export default function Index() {
     const dispatch = useDispatch();
     const [search, setSearch] = useState("");
     const [suggestions, setSuggestions] = useState([]);
+    const [tilesView, setTilesView] = useState(true);
 
     useEffect(() => {
         if (search.length > 0) {
@@ -30,7 +32,7 @@ export default function Index() {
         } else {
             setSuggestions([]);
         }
-    }, [search]);
+    }, [search, dispatch]);
 
     const handleSetPlace = (place) => {
         console.log("Called");
@@ -95,20 +97,25 @@ export default function Index() {
                     </Combobox>
 
                 </div>
-
-                <div className="flex flex-wrap justify-center pl-4 mx-auto text-base md:border-l md:border-gray-400 lg:mr-auto lg:ml-4">
-                    {NavbarData.Tiles.map((item) => (
-                        <button
-                            className="p-1 px-4 mr-5 font-medium text-black bg-white border-gray-300 rounded-full shadow-lg cursor-pointer btn hover:text-gray-900"
-                            key={item.id}
-                        >
-                            {item.name}
-                        </button>
-                    ))}
+                <div className="flex space-between md:mx-auto">
+                    <div className={`flex flex-wrap justify-center pl-4 mx-auto text-base lg:mr-auto lg:ml-4`}>
+                        {tilesView && NavbarData.Tiles.map((item) => (
+                            <button
+                                className="p-1 px-4 mr-5 font-medium text-black bg-white border-gray-300 rounded-full shadow-lg cursor-pointer btn hover:text-gray-900"
+                                key={item.id}
+                            >
+                                {item.name}
+                            </button>
+                        ))}
+                    </div>
+                    <button className="-pl-10 -ml-10" onClick={() => setTilesView(!tilesView)}>
+                        <ChevronRightIcon className={`h-8 w-8 text-gray-500 bg-white rounded-full p-1 md:hidden ${tilesView ? 'rotate-180' : 'rotate-0'}`} />
+                    </button>
                 </div>
                 <div className="hidden md:inline-block">
                     <Timeline />
                 </div>
+
             </div>
         </header>
     );
