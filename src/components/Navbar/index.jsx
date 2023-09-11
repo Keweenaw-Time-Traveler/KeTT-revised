@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Timeline from "../Timeline/Timeline";
 import NavbarData from '../../assets/data/Navbar/Tiles.json';
 import { NavbarSearchIcon } from "../../assets/icons/heroicons";
-import { ChevronRightIcon } from '@heroicons/react/24/solid'
+import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import { useDispatch } from "react-redux";
 import { setSearchPlace } from "../../store/actionCreators/ArcGisActionCreator";
 import { Combobox } from "@headlessui/react";
@@ -36,7 +36,7 @@ export default function Index() {
 
     const handleSetPlace = (place) => {
         console.log("Called");
-        setSearch(place)
+        setSearch(place);
         dispatch(setSearchPlace(place));
     }
 
@@ -56,27 +56,31 @@ export default function Index() {
                                     <NavbarSearchIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
                                 </div>
                                 <Combobox.Input
-                                    className="w-full border-none inputBox sm:text-sm sm:leading-5"
-                                    placeholder="Search places"
+                                    className="w-full border-none inputBox sm:text-sm sm:leading-5 focus:outline-none focus:ring-0 "
+                                    placeholder={"Search places"}
                                     onChange={(e) => handleSelectSuggestion(e.target.value)}
                                 />
-                                <div className="inset-y-0 right-0 flex items-center px-2 pointer-events-none" onClick={() => handleSetPlace("")}>
+                                <div className="inset-y-0 right-0 mr-2 flex items-center px-2 pointer-events-none" onClick={() => handleSetPlace("")}>
                                     <RxCrossCircled
                                         className="w-5 h-5"
                                         aria-hidden="true"
                                     />
                                 </div>
-
-
+                                <button className={`-pl-10 -ml-10  ml-[1px] md:hidden ${tilesView ? 'rotate-180 border-r-2' : 'rotate-0 border-l-2'}`} onClick={() => setTilesView(!tilesView)}>
+                                    <ChevronDownIcon className={`h-8 w-8 text-gray-500 bg-white rounded-full p-1 `} />
+                                </button>
                             </div>
                             {search.length > 0 && (
-                                <button
-                                    type="button"
-                                    onClick={handleSetPlace}
-                                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-500 focus:outline-none"
-                                >
+                                <div className="flex">
+                                    <button
+                                        type="button"
+                                        onClick={handleSetPlace}
+                                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-500 focus:outline-none"
+                                    >
 
-                                </button>
+                                    </button>
+
+                                </div>
                             )}
 
                             <Combobox.Options
@@ -95,11 +99,10 @@ export default function Index() {
                             </Combobox.Options>
                         </div>
                     </Combobox>
-
                 </div>
-                <div className="flex space-between md:mx-auto">
+                <div className={`flex space-between md:mx-auto md:inline-block ${tilesView ? 'hidden' : 'inline-block'}`}>
                     <div className={`flex flex-wrap justify-center pl-4 mx-auto text-base lg:mr-auto lg:ml-4`}>
-                        {tilesView && NavbarData.Tiles.map((item) => (
+                        {NavbarData.Tiles.map((item) => (
                             <button
                                 className="p-1 px-4 mr-5 font-medium text-black bg-white border-gray-300 rounded-full shadow-lg cursor-pointer btn hover:text-gray-900"
                                 key={item.id}
@@ -108,9 +111,6 @@ export default function Index() {
                             </button>
                         ))}
                     </div>
-                    <button className="-pl-10 -ml-10" onClick={() => setTilesView(!tilesView)}>
-                        <ChevronRightIcon className={`h-8 w-8 text-gray-500 bg-white rounded-full p-1 md:hidden ${tilesView ? 'rotate-180' : 'rotate-0'}`} />
-                    </button>
                 </div>
                 <div className="hidden md:inline-block">
                     <Timeline />
