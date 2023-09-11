@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Timeline from "../Timeline/Timeline";
 import NavbarData from '../../assets/data/Navbar/Tiles.json';
 import { NavbarSearchIcon } from "../../assets/icons/heroicons";
-import { ChevronDownIcon } from '@heroicons/react/24/solid'
+import { ExpandTilesIcon } from "../../assets/icons/heroicons";
 import { useDispatch } from "react-redux";
 import { setSearchPlace } from "../../store/actionCreators/ArcGisActionCreator";
 import { Combobox } from "@headlessui/react";
@@ -66,8 +66,8 @@ export default function Index() {
                                         aria-hidden="true"
                                     />
                                 </div>
-                                <button className={`-pl-10 -ml-10  ml-[1px] md:hidden ${tilesView ? 'rotate-180 border-r-2' : 'rotate-0 border-l-2'}`} onClick={() => setTilesView(!tilesView)}>
-                                    <ChevronDownIcon className={`h-8 w-8 text-gray-500 bg-white rounded-full p-1 `} />
+                                <button className={`-pl-10 -ml-10  ml-[1px] md:hidden ${tilesView ? 'rotate-0 border-l-2' : 'rotate-180 border-r-2'}`} onClick={() => setTilesView(!tilesView)}>
+                                    <ExpandTilesIcon className={`h-8 w-8 text-gray-500 bg-white rounded-full p-1 `} />
                                 </button>
                             </div>
                             {search.length > 0 && (
