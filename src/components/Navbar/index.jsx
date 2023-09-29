@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Timeline from "../Timeline/Timeline";
+import Timeline from "../Timeline/timeline";
 import NavbarData from '../../assets/data/Navbar/Tiles.json';
 import { NavbarSearchIcon } from "../../assets/icons/heroicons";
 import { ExpandTilesIcon } from "../../assets/icons/heroicons";
