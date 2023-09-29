@@ -35,11 +35,13 @@ const Timeline = () => {
     return (
 
         (items && <div className="relative text-left">
-            <select onChange={(e) => handleOnChangeTimeLine(e.target.value)} value={currentYearFromStore} className="flex justify-center p-2 pr-6 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                <option value='default' className="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" role="menuitem" tabIndex="-1" id="menu-item-1">Timeline
+            <select onChange={(e) => handleOnChangeTimeLine(e.target.value)} value={currentYearFromStore}
+                className="flex justify-center p-2 pr-6 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+                <option value='default' className="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm 
+                hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" role="menuitem" tabIndex="-1" id="menu-item-1">Timeline
                 </option>
                 {items ? items.map((item, i) => (
-                    <option key={i} className="block px-4 py-2 text-sm text-gray-700" value={item.map_year} >{item.min} - {item.max}</option>
+                    <option key={i} className="block px-4 py-2 mr-4 text-sm text-gray-700" value={item.map_year} >{item.min} - {item.max}</option>
                 )) : "<Loading>"}
             </select>
 
