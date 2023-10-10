@@ -1,0 +1,24 @@
+import React from 'react';
+import { useRecoilValue } from 'recoil';
+import NavbarData from '../../../assets/data/Navbar/Tiles.json';
+import { NavbartilesState } from '../../../Atoms/NavbarTilesAtom';
+
+const NavbarTiles = () => {
+    const tilesView = useRecoilValue(NavbartilesState);
+    return (
+        <div className={`flex space-between md:mx-auto md:inline-block ${tilesView ? 'hidden' : 'inline-block'}`}>
+            <div className={`flex flex-wrap justify-center pl-4 mx-auto text-base lg:mr-auto lg:ml-4`}>
+                {NavbarData.Tiles.map((item) => (
+                    <button
+                        className="p-1 px-4 mr-5 font-medium text-black bg-white border-gray-300 rounded-full shadow-lg cursor-pointer btn hover:text-gray-900"
+                        key={item.id}
+                    >
+                        {item.name}
+                    </button>
+                ))}
+            </div>
+        </div>
+    )
+}
+
+export default NavbarTiles;
