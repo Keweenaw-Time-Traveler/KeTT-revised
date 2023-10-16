@@ -5,6 +5,7 @@ import timelineSlice from './timelineSlice';
 import errorsSlice from './errorsSlice';
 import currentState from './unusedReducers/currentState';
 import arcgisReducer from './unusedReducers/ArcGisReducer';
+import NavabarTilesSlice from './NavbarTilesSlice';
 
 export default combineReducers({
     // mapView: mapViewReducer.reducer,
@@ -13,4 +14,5 @@ export default combineReducers({
     errors: errorsSlice,
     // currentState: currentState,
     arcgisState: arcgisReducer,
+    NavabarTilesState: NavabarTilesSlice,
 })
