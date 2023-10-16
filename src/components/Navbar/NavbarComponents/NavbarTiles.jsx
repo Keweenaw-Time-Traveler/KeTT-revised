@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Tiles } from '../index';
-import { useSelector } from 'react-redux';
 import NavbarData from '../../../assets/data/Navbar/Tiles.json';
 
 const NavbarTiles = ({ view }) => {
