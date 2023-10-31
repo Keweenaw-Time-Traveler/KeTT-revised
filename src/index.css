@@ -18,7 +18,9 @@ code {
   overflow: hidden;
   width: 100%;
 }
-
+.esri-popup__content {
+  overflow: visible!important;
+}
 #layerToggle {
   top: 20px;
   right: 20px;
@@ -32,4 +34,26 @@ code {
 
 .html-component {
   /* display: none; */
+}
+/* Add this CSS to your project's CSS file or component styles */
+
+.custom-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.spinner-circle {
+  border: 2px solid transparent;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

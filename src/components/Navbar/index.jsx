@@ -4,7 +4,7 @@ import NavbarData from '../../assets/data/Navbar/Tiles.json';
 import { NavbarSearchIcon } from "../../assets/icons/heroicons";
 import { ExpandTilesIcon } from "../../assets/icons/heroicons";
 import { useDispatch } from "react-redux";
-import { setSearchPlace } from "../../store/actionCreators/ArcGisActionCreator";
+import { fetchDataPoints, setSearchPlace } from "../../store/actionCreators/ArcGisActionCreator";
 import { Combobox } from "@headlessui/react";
 import { RxCrossCircled } from "react-icons/rx";
 import { setError } from "../../store/reducers/errorsSlice";
@@ -38,7 +38,8 @@ export default function Index() {
     const handleSetPlace = (place) => {
         console.log("Called");
         setSearch(place);
-        dispatch(setSearchPlace(place));
+        dispatch(fetchDataPoints(place))
+        // dispatch(setSearchPlace(place));
         setXbutton(false);
     }
 
@@ -47,6 +48,7 @@ export default function Index() {
         setSuggestions([]);
         setXbutton(true);
     }
+    // dispatch(fetchDataPoints("Michigan"))
 
     return (
         <header className="text-gray-600 body-font">
