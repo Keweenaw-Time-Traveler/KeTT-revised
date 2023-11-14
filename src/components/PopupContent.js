@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 function CustomSpinner() {
   return (
@@ -8,7 +9,7 @@ function CustomSpinner() {
   );
 }
 
-function PointDetailComponent({ pointId }) {
+function PopupContent({ pointId }) {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalRecordCount, setTotalRecordCount] = useState(0);
@@ -16,9 +17,6 @@ function PointDetailComponent({ pointId }) {
   const [allRecordsLoaded, setAllRecordsLoaded] = useState(false);
   const apiUrl = "http://localhost:8888/ktt-api/grid_cell.php";
   const containerRef = React.createRef();
-  // console.log("Data:", data);
-  // console.log("isLoading:", isLoading);
-  // console.log("allRecordsLoaded:", allRecordsLoaded);
   const fetchData = () => {
     if (!pointId || isLoading || allRecordsLoaded) {
       return;
@@ -64,7 +62,7 @@ function PointDetailComponent({ pointId }) {
         setCurrentPage(currentPage + 1);
       })
       .catch((error) => {
-        console.error("Error fetching data from the API:", error);
+        console.log("Error fetching data from the API:", error);
         setIsLoading(false);
       });
   };
@@ -117,4 +115,4 @@ return (
 
 }
 
-export default PointDetailComponent;
+export default PopupContent;

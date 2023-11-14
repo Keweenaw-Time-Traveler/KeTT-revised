@@ -14,10 +14,8 @@ import {
   SET_PLACE,
   SET_PORTAL_URL,
   FETCH_DATA_POINTS,
-  scrollAction,
 } from "../actionCreators/ArcGisActionCreator";
 
-import { selectedTimeline } from "../reducers/timelineSlice";
 import PopupContent from "../../components/PopupContent";
 // Global variable for ArcGIS objects
 const arcgis = window.arcgis || {};
