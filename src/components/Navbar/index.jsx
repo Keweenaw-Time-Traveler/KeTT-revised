@@ -39,7 +39,7 @@ export default function Index() {
         console.log("Called");
         setSearch(place);
         dispatch(fetchDataPoints(place))
-        // dispatch(setSearchPlace(place));
+        dispatch(setSearchPlace(place));
         setXbutton(false);
     }
 

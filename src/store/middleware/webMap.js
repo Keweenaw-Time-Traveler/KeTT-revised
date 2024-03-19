@@ -216,7 +216,7 @@ export const webMap = (store) => (next) => (action) => {
                         popupTemplate,
                       });
 
-                      arcgis.mapView.graphics.removeAll();
+                      // arcgis.mapView.graphics.removeAll();
                       arcgis.mapView.graphics.add(graphic);
                     });
                 });
